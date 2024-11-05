@@ -1,18 +1,29 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-int findduplicate(int arr[], int n){
-	int i,ans=0;
-	for(i=0;i<n;i++){
-		ans=ans^arr[i];
-	}
-	for(i=0;i<n;i++){
-		ans=ans^i;
-	}
-	return ans;
-}
-int main(){
-	int arr[]={1,2,3,1,7};
-	int n=sizeof(arr)/sizeof(int);
-	cout<<findduplicate(arr,n);
+ 
+ int findDuplicate(vector<int>&nums){
+  int fast=nums[nums[0]];
+  int slow=nums[0];
+  //detect the loop.. here i rabit and turtoise where 
+  while(fast!=slow){
+	slow=nums[slow];
+	fast=nums[nums[fast]];
+  }
+
+//find the number that is create the loop
+  slow=0;
+  while(slow!=fast){
+	slow=nums[slow];
+	fast=nums[fast];
+  }
+
+  return fast;
+ }
+
+ int main(){
+	vector<int>nums={1,4,5,2,1,3};
+	int ans = findDuplicate(nums);
+	cout<<"Duplicate :"<<ans;
 	return 0;
-}
+ }
